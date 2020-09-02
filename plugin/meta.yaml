@@ -11,4 +11,4 @@ category: Language
 fistPublicationDate: '2017-12-17'
 spec:
   extensions:
-    - 
+    - https://github.com/edeandrea/cedev/raw/master/plugin/vscoss.vscode-ansible-0.5.2.vsix
