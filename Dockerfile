@@ -1,10 +1,15 @@
 FROM ubuntu:latest
+
 USER root
+
 RUN apt-get purge -y python.* && \
     apt autoremove -y && \
     apt-get update && \
-    apt-get install -y --no-install-recommends \
-    ansible python3-pip git unzip
+    apt-get install -y --no-install-recommends ansible python3-pip git unzip && \
+    mkdir -p /projects && \
+    chgrp -R 0 /projects && \
+    chmod -R g+rwX /projects
+
 RUN pip3 install -U setuptools wheel
 
 # Download and install Terraform
@@ -26,6 +31,5 @@ RUN ln -s /usr/bin/python3 /usr/bin/python && \
 RUN apt-get install -y curl
 RUN useradd -m -u 12345 -s /bin/bash ceuser
 USER ceuser
-WORKDIR /home/ceuser
-# ENTRYPOINT [ "/bin/bash" ]
+WORKDIR /projects
 CMD tail -f /dev/null
