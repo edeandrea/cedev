@@ -1,0 +1,10 @@
+apiVersion: 1.0.0
+metadata:
+  name: cedev
+components:
+  - alias: cedev
+    type: dockerimage
+    memoryLimit: 512Mi
+    image: quay.io/eric_deandrea/cedev:latest
+  - id: redhat/vscode-yaml/latest
+    type: chePlugin
