@@ -29,7 +29,7 @@ RUN wget https://releases.hashicorp.com/vault/1.5.3/vault_1.5.3_linux_amd64.zip 
 
 # Change permissions
 RUN echo "user ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers && \
-    chown -R 1319330000 ${HOME}
+    chown -R 1319330000:1319330000 ${HOME}
 
 USER user
 
