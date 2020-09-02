@@ -8,3 +8,6 @@ components:
     image: quay.io/eric_deandrea/cedev:latest
   - id: redhat/vscode-yaml/latest
     type: chePlugin
+  - id: ms-python/python/latest
+    memoryLimit: 512Mi
+    type: chePlugin
