@@ -6,11 +6,5 @@ components:
     type: dockerimage
     memoryLimit: 512Mi
     image: quay.io/eric_deandrea/cedev:latest
-    env:
-      - name: HOME
-        value: /projects
   - id: redhat/vscode-yaml/latest
     type: chePlugin
-  - alias: ansible-plugin
-    type: chePlugin
-    reference: https://raw.githubusercontent.com/edeandrea/cedev/master/plugin/meta.yaml
