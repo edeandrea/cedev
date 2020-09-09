@@ -33,6 +33,7 @@ COPY --chown=0:0 entrypoint.sh /
 RUN mkdir -p /home/user && \
     chgrp -R 0 /home && \
     chmod -R g=u /etc/passwd /etc/group /home && \
+    chown -R 10001:10001 /home/user && \
     chmod +x /entrypoint.sh
 
 USER 10001
