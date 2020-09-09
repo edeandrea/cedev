@@ -9,7 +9,7 @@ RUN pip install --upgrade pip
 
 # Install other tools
 RUN apt-get update && \
-    apt-get install -y git unzip curl wget && \
+    apt-get install -y git unzip curl wget sudo && \
     pip3 install -U setuptools wheel
 
 # Install Ansible
@@ -30,11 +30,14 @@ RUN wget https://releases.hashicorp.com/vault/1.5.3/vault_1.5.3_linux_amd64.zip 
 # Set permissions on /etc/passwd and /home to allow arbitrary users to write
 COPY --chown=0:0 entrypoint.sh /
 
-RUN mkdir -p /home/user && \
-    chgrp -R 0 /home && \
-    chmod -R g=u /etc/passwd /etc/group /home && \
-    chown -R 10001:10001 /home/user && \
+RUN chgrp -R 0 /home && \
+    mkdir -p /home/user && \
+    chmod -R g=u /etc/passwd /etc/group /home /projects && \
+    # chown -R 10001 /home/user && \
     chmod +x /entrypoint.sh
+    # echo "user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/user && \
+    # chmod 0440 /etc/sudoers.d/user && \
+    # echo "sudoers:  files" >> /etc/nsswitch.conf
 
 USER 10001
 
@@ -45,12 +48,6 @@ WORKDIR /projects
 ENTRYPOINT [ "/entrypoint.sh" ]
 
 CMD [ "tail", "-f", "/dev/null" ]
-
-# Change permissions
-# RUN echo "user ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers && \
-#     chown -R 1319330000:1319330000 ${HOME}
-
-# USER 1319330000
 
 ######################################################
 # Using RHEL8 base image that already has python on it
