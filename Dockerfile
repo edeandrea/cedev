@@ -31,17 +31,13 @@ RUN wget https://releases.hashicorp.com/vault/1.5.3/vault_1.5.3_linux_amd64.zip 
 COPY --chown=0:0 entrypoint.sh /
 
 RUN chgrp -R 0 /home && \
-    mkdir -p /home/user && \
     chmod -R g=u /etc/passwd /etc/group /home /projects && \
-    # chown -R 10001 /home/user && \
     chmod +x /entrypoint.sh
-    # echo "user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/user && \
-    # chmod 0440 /etc/sudoers.d/user && \
-    # echo "sudoers:  files" >> /etc/nsswitch.conf
 
 USER 10001
 
-ENV HOME=/home/user
+ENV HOME=/home/ceuser \
+    USER_NAME=ceuser
 
 WORKDIR /projects
 

@@ -4,6 +4,7 @@ USERID=$(id -u)
 
 # Ensure $HOME exists when starting
 if [ ! -d "${HOME}" ]; then
+  # echo "Creating ${HOME}"
   mkdir -p "${HOME}"
 fi
 
@@ -15,16 +16,15 @@ fi
 # Add current (arbitrary) user to /etc/passwd and /etc/group
 if ! whoami &> /dev/null; then
   if [ -w /etc/passwd ]; then
+    # echo "Patching /etc/passwd and /etc/group"
     echo "${USER_NAME:-user}:x:${USERID}:0:${USER_NAME:-user} user:${HOME}:/bin/bash" >> /etc/passwd
     echo "${USER_NAME:-user}:x:${USERID}:" >> /etc/group
   fi
 fi
 
-# echo ${USERID} > /home/user/.userid
+# echo ${USERID} > ${HOME}/.userid
 # echo "whoami = $(whoami)"
 # echo "USERID = ${USERID}"
-# echo "ls -al ~ = $(ls -al /home/user)"
-# sudo chown -vR ${USERID} ${HOME}
-# echo "ls -al ~ = $(ls -al /home/user)"
+# echo "ls -al ~ = $(ls -al ${HOME})"
 
 exec "$@"
